@@ -15,7 +15,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.userCardConteiner {
+
+
+.userListItem {
   width: 400px;
   height: 600px;
   background-color: white;
@@ -25,6 +27,7 @@ code {
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
+  margin: 20px auto;
   .userPhoto {
     position: relative;
     width: 100%;
@@ -33,35 +36,47 @@ code {
     overflow: hidden;
     img {
       width: 100%;
+      margin-bottom: 25%;
     }
-    &::before {
+    &::before,
+    &::after {
       display: block;
       position: absolute;
       box-sizing: border-box;
-      height: 100%;
       width: 37%;
-      content: '';
       background-color: rgba(226, 81, 81, 0.774);
     }
-    .company {
-      z-index: 70;
+    &::before {
+      height: 100%;
+      content: '';
+    }
+    &::after {
+      bottom: 0;
       height: 20%;
-      width: 37%;
-      padding: 3% 8%;
-      font-size: 2rem;
+      content: 'arch owl';
       color: white;
+      font-size: 2.2rem;
+      padding: 0 5%;
+    }
+    &.female{
+      &::before,
+      &::after {
+            background-color: rgba(180, 81, 226, 0.685);
+      }
     }
   }
-  .userName{
+  .userName {
     font-size: 2rem;
     font-weight: bold;
     text-transform: uppercase;
   }
-  .jobFunction{
+  .city {
     text-transform: capitalize;
     font-style: italic;
     font-size: larger;
     color: grey;
-    
+  }
+  *{
+    user-select: none;
   }
 }

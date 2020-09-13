@@ -11,7 +11,7 @@ const http = axios.create({
 const getUsers = async (results = 1) => {
   try {
     return await http
-      .get(`?results=${results}&seed=abc&inc=name,location,picture`, { cancelToken: source.token })
+      .get(`?results=${results}&seed=b&inc=gender,name,location,picture`, { cancelToken: source.token })
       .then((res) => res.data.results)
   } catch (error) {
     if (axios.isCancel(error)) {

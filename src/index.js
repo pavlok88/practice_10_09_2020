@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App.jsx';
-import {getUsers} from './api/index'
+import { getUsers } from './api/index';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,11 +13,7 @@ ReactDOM.render(
 
 {
   //------------------------------------------------------------------
-  /* 1-написать функцию которая получает из массива строк новый массив ,
-  содержащий длины этих строк
-  Пример, 
-  'Капуста', 'Репа', 'Редиска', 'Морковка' вернет 7,4,7,8
-  */
+  //1-написать функцию которая получает из массива строк новый массив содержащий длины этих строк
 
   const arrText = ['Капуста', 'Репа', 'Редиска', 'Морковка'];
   const wordsLength = (arr) => arr.map((el) => el.length);
@@ -38,13 +34,13 @@ ReactDOM.render(
   console.log(textToArr(text));
 
   //------------------------------------------------------------------
-  // 3- удалить повторяющиеся символы из строки , оставив только уникальные
+  // 3. удалить повторяющиеся символы из строки , оставив только уникальные
 
   const delDuplicateSymbols = (text) => Array.from(new Set(text)).join('');
   console.log(delDuplicateSymbols(text));
 
   //------------------------------------------------------------------
-  //функцию, которая принимает объект с почтой и паролем
+  //4. функцию, которая принимает объект с почтой и паролем
   //и тестирует объект на валидность введенных значений
 
   const mailPassObj = {
@@ -85,14 +81,85 @@ ReactDOM.render(
     lastName: 'ln',
   };
   console.log(obj2);
+
   const clearObj = (obj1, obj2) => {
     for (let prop in obj2) {
       if (obj1[prop] !== undefined) delete obj2[prop];
     }
   };
+  
   clearObj(obj1, obj2);
   console.log(obj2);
-}
 
-const usersArr = getUsers(5)
-console.log(usersArr)
+  //-----------------------------------
+  //7-Реализовать механизм ленивой подгрузки изображений или
+  //набора карточек из задания по верстке (Intersection Observer)
+
+  getUsers(10).then(cbFunc); //load 10 user cards
+  //-----------------------------------
+  const options = {
+    threshold: 0.1,
+  };
+  const lazyLoadImg = new IntersectionObserver(imgHandler, options);
+
+  function imgHandler(avatarImg) {
+    avatarImg.forEach((img) => {
+      if (img.intersectionRatio > 0) {
+        console.log(img.target);
+        img.target.src = img.target.getAttribute('alt');
+        lazyLoadImg.unobserve(img.target);
+      }
+    });
+  }
+
+  // ----------------------------------
+  const userCardCollection = document.getElementById(`userCardCollection`);
+
+  function cbFunc(data) {
+    data.forEach((userData) => {
+      renderUsers(userData);
+      //console.log(userData);
+    });
+  }
+
+  function renderUsers(user) {
+    const userList = createUserListItem();
+    userList.append(createUserAvatarBlock(user));
+    userList.append(createUserName(user));
+    userList.append(createUserCity(user));
+    userCardCollection.append(userList);
+  }
+
+  function createUserListItem() {
+    const userListItem = document.createElement('li');
+    userListItem.classList.add('userListItem');
+    return userListItem;
+  }
+  function createUserAvatarBlock(user) {
+    const userAvatarBlock = document.createElement('div');
+    userAvatarBlock.classList.add('userPhoto');
+    if (user.gender === 'female') userAvatarBlock.classList.add('female');
+    userAvatarBlock.append(createUserAvatar(user));
+    return userAvatarBlock;
+  }
+
+  function createUserAvatar(user) {
+    const userAvatar = document.createElement('img');
+    userAvatar.setAttribute('alt', `${user.picture.large}`);
+    lazyLoadImg.observe(userAvatar);
+    return userAvatar;
+  }
+
+  function createUserName(user) {
+    const userName = document.createElement('h2');
+    userName.classList.add('userName');
+    userName.textContent = `${user.name.first} ${user.name.last}`;
+    return userName;
+  }
+  function createUserCity(user) {
+    const userCity = document.createElement('p');
+    userCity.classList.add('city');
+    userCity.textContent = `${user.location.city}`;
+    return userCity;
+  }
+}
