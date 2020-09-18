@@ -87,7 +87,7 @@ ReactDOM.render(
       if (obj1[prop] !== undefined) delete obj2[prop];
     }
   };
-  
+
   clearObj(obj1, obj2);
   console.log(obj2);
 
@@ -95,7 +95,7 @@ ReactDOM.render(
   //7-Реализовать механизм ленивой подгрузки изображений или
   //набора карточек из задания по верстке (Intersection Observer)
 
-  getUsers(10).then(cbFunc); //load 10 user cards
+  getUsers(100).then(cbFunc); //load 10 user cards
   //-----------------------------------
   const options = {
     threshold: 0.1,

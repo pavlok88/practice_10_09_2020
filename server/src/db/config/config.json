@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "pavel",
+    "password": "pavel",
+    "database": "db_items_categories",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+}
+}

@@ -27,7 +27,7 @@ code {
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
-  margin: 20px auto;
+  margin: 15px auto;
   .userPhoto {
     position: relative;
     width: 100%;
@@ -44,7 +44,7 @@ code {
       position: absolute;
       box-sizing: border-box;
       width: 37%;
-      background-color: rgba(226, 81, 81, 0.774);
+      background-color: rgba(247, 74, 74, 0.712);
     }
     &::before {
       height: 100%;
